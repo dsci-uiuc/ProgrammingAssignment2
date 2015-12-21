@@ -30,15 +30,21 @@ cacheSolve <- function(x, ...) {
     # Computes the inverse of a matrix (caching results for repeated computations), that is contained by 'x'
     #
     # Args:
-    #   x: A list created by makeCacheMatrix() that contains functions to get and set a cached matrix and its inverse
+    #   x: A list created by makeCacheMatrix() that contains functions to 
+    #       get and set a cached matrix and its inverse
     #
     # Returns:
     #   A matrix that is the inverse of 'x'
+    
+    # check if the calculated inverse is already available for this matrix
     m <- x$getinverse()
     if(!is.null(m)) {
         message("getting cached data")
         return(m)
     }
+    
+    # if it doesn't already exist, calculate the inverse of the matrix, 
+    #   and store it before returning the reuslt to the caller
     data <- x$get()
     m <- solve(data, ...)
     x$setinverse(m)
